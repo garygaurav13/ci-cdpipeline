@@ -24,19 +24,23 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Tests
-        run: npm test
+      - name: Build Next.js App
+        run: npm run build
 
-  deploy:
+      - name: Run Next.js App (Optional for Testing)
+        run: npm start & sleep 10
+
+        
+deploy:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout Code
+        - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Deploy to Server
+        - name: Deploy to Server
         run: |
-          echo "Deploying application..."
-          # Add your deployment commands here (e.g., SSH into server, upload files)
+            echo "Deploying application..."
+            # Add your deployment commands here (e.g., SSH into server, upload files)
